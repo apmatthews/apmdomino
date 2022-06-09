@@ -12,4 +12,8 @@
  * @package My_CICD_Plugin
  */
  
- register_post_type('cicd');
+ add_action('init', 'register_my_cpt');
+
+ function register_my_cpt() {
+    register_post_type('cicd');
+ }
