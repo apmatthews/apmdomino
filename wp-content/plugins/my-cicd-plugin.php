@@ -15,5 +15,7 @@
  add_action('init', 'register_my_cpt');
 
  function register_my_cpt() {
-    register_post_type('cicd');
+    register_post_type('cicd', array(
+        'public' => true
+    ));
  }
