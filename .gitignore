@@ -64,6 +64,7 @@ wp-content/mu-plugins/wpe-wp-sign-on-plugin*
 !/wp-content/plugins
 /wp-content/plugins/*
 !/wp-content/plugins/my-cicd-plugin.php
+!/wp-content/plugins/wp-graphql
 
 # large/disallowed file types
 # a CDN should be used for these
