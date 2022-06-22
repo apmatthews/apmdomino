@@ -13,5 +13,6 @@ jobs:
       with:
         WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }} 
         WPE_ENV: apmdomino
-        SRC_PATH: "wp-content/plugins/my-cicd-plugin.php"
-        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin.php"
+        SRC_PATH: "wp-content/plugins/my-cicd-plugin"
+        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin"
+        SCRIPT: "wp-content/plugins/post-deploy.sh"
