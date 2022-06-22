@@ -7,7 +7,7 @@
  * Author URI: https://github.com/apmatthews
  * Text Domain: my-cicd-plugin
  * Domain Path: /languages
- * Version: 0.0.5
+ * Version: 0.0.6
  *
  * @package My_CICD_Plugin
  */
