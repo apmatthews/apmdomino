@@ -7,9 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest  
     steps: 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: GitHub Action Deploy to WP Engine
       uses: wpengine/github-action-wpe-site-deploy@v3.0
       with:
         WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }} 
         WPE_ENV: apmdomino
+        SRC_PATH: "wp-content/plugins/my-cicd-plugin.php"
+        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin.php"
