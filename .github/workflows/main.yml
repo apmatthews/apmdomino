@@ -15,4 +15,4 @@ jobs:
         WPE_ENV: apmdomino
         SRC_PATH: "wp-content/plugins/my-cicd-plugin/"
         REMOTE_PATH: "wp-content/plugins/my-cicd-plugin/"
-        SCRIPT: "wp-content/plugins/my-cicd-plugin/post-deploy.sh"
+        PHP_LINT: TRUE
