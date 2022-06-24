@@ -1,1 +1,1 @@
-wp core version
+echo "Hello, from the script!"
