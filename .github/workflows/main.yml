@@ -24,5 +24,5 @@ jobs:
         REMOTE_PATH: "wp-content/plugins/my-cicd-plugin"
         PHP_LINT: TRUE
         FLAGS: -r -b --backup-dir=wp-content/plugins/my-cicd-plugin-old
-        SCRIPT: "wp-content/plugins/sample-plugin/post-deploy.sh"
+        SCRIPT: "wp-content/plugins/my-cicd-plugin/post-deploy.sh"
         CACHE_CLEAR: TRUE
