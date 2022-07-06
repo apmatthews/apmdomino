@@ -21,8 +21,8 @@ jobs:
         WPE_ENV: apmdomino
         # Deploy Options
         SRC_PATH: "wp-content/plugins/my-cicd-plugin"
-        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin"
+        REMOTE_PATH: "wp-content/plugins/"
         PHP_LINT: TRUE
-        FLAGS: -r -b --backup-dir=wp-content/plugins/my-cicd-plugin-old
+        FLAGS: -r --backup --backup-dir=sites/apmdomino/wp-content/plugins/my-cicd-plugin-old
         SCRIPT: "wp-content/plugins/my-cicd-plugin/post-deploy.sh"
         CACHE_CLEAR: TRUE
