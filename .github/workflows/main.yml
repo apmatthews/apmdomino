@@ -10,6 +10,7 @@ on:
 
 jobs:
   check_current_plugin_version:
+    runs-on: ubuntu-latest
     steps:
       - run: echo "TODO - ssh into server and use wp cli to check version of test plugin"
   run_action:
@@ -35,6 +36,7 @@ jobs:
           SCRIPT: "wp-content/plugins/my-cicd-plugin/post-deploy.sh"
           CACHE_CLEAR: TRUE
   validate_result:
+    runs-on: ubuntu-latest
     needs: run_action
     steps:
       - run: echo TODO - Use action output to check version of test plugin is ${{needs.run_action.outputs.version}}
