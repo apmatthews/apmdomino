@@ -1,18 +1,28 @@
-name: Deploy to WP Engine
+name: Test e2e Deploy to WP Engine
 on:
   push:
     branches:
-     - main
+      - main
+  pull_request:
+    branches:
+      - main
+
+
 jobs:
-  build:
+  run_action:
     runs-on: ubuntu-latest  
     steps: 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: GitHub Action Deploy to WP Engine
-      uses: wpengine/github-action-wpe-site-deploy@update/check-script-remote
+      uses: wpengine/github-action-wpe-site-deploy@v3.0
       with:
+        # Deploy vars 
         WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }} 
         WPE_ENV: apmdomino
-        SCRIPT: "post-deploy.sh"
-        SRC_PATH: "wp-content/plugins/my-cicd-plugin/"
-        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin/"
+        # Deploy Options
+        SRC_PATH: "wp-content/plugins/my-cicd-plugin"
+        REMOTE_PATH: "wp-content/plugins/my-cicd-plugin"
+        PHP_LINT: TRUE
+        FLAGS: -r -b --backup-dir=wp-content/plugins/my-cicd-plugin-old
+        SCRIPT: "wp-content/plugins/sample-plugin/post-deploy.sh"
+        CACHE_CLEAR: TRUE
