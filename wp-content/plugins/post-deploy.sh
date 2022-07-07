@@ -10,9 +10,9 @@ BEFORE_PLUGIN_VERSION=$(wp plugin get my-cicd-plugin | sed -n "/version/p" | cut
 echo "::set-output name=before_version::$BEFORE_PLUGIN_VERSION"
 
 if [ "$BEFORE_PLUGIN_VERSION" = "$AFTER_PLUGIN_VERSION" ]; then
-    echo "Test plugin was not updated" && exit 1
+    echo "FAILURE: Test plugin was not updated" && exit 1
 else
-    echo "Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
+    echo "SUCCESS: Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
 fi
 
 # Cleanup
