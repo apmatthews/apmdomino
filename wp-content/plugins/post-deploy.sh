@@ -1,3 +1,9 @@
+# Cleanup
+function cleanup {
+    rm wp-content/plugins/post-deploy.sh
+}
+trap cleanup EXIT
+
 # Get the the new plugin version
 AFTER_PLUGIN_VERSION=$(wp plugin get my-cicd-plugin | sed -n "/version/p" | cut -f2)
 echo "New test plugin version: $AFTER_PLUGIN_VERSION"
@@ -15,6 +21,3 @@ if [ "$BEFORE_PLUGIN_VERSION" = "$AFTER_PLUGIN_VERSION" ]; then
 else
     echo "Success: Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
 fi
-
-# Cleanup
-rm wp-content/plugins/post-deploy.sh
