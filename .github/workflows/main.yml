@@ -29,7 +29,7 @@ jobs:
           REMOTE_PATH: "wp-content/plugins/"
           PHP_LINT: TRUE
           FLAGS: -r --backup --backup-dir=tmp --itemize-changes
-          SCRIPT: "wp-content/plugins/my-cicd-plugin/post-deploy.sh"
+          SCRIPT: "wp-content/plugins/post-deploy.sh"
           CACHE_CLEAR: TRUE
   validate_result:
     runs-on: ubuntu-latest
