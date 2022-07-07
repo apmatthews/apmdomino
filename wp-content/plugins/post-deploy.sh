@@ -1,5 +1,5 @@
 # Cleanup
-function cleanup {
+cleanup() {
     rm wp-content/plugins/post-deploy.sh
 }
 trap cleanup EXIT
