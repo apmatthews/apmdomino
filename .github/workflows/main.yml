@@ -11,15 +11,11 @@ on:
 jobs:
   run_action:
     runs-on: ubuntu-latest
-    outputs:
-      before_version: ${{ steps.deploy.outputs.before_version }}
-      after_version: ${{ steps.deploy.outputs.after_version }}
     steps: 
       - uses: actions/checkout@v3
-      - name: Bump plugin version number
-        run: sed -i 's/0.0.1/0.0.1/' wp-content/plugins/my-cicd-plugin/my-cicd-plugin.php
+      - name: Bump test plugin version number
+        run: sed -i 's/0.0.1/0.0.2/' wp-content/plugins/my-cicd-plugin/my-cicd-plugin.php
       - name: GitHub Action Deploy to WP Engine
-        id: deploy
         uses: wpengine/github-action-wpe-site-deploy@main
         with:
           # Deploy vars 
@@ -32,10 +28,3 @@ jobs:
           FLAGS: -r --backup --backup-dir=/tmp --itemize-changes
           SCRIPT: "wp-content/plugins/post-deploy.sh"
           CACHE_CLEAR: TRUE
-  validate_result:
-    runs-on: ubuntu-latest
-    needs: run_action
-    steps:
-      - if: needs.run_action.outputs.before_version == needs.run_action.outputs.after_version
-        run: echo Test plugin failed to update && exit 1
-      - run: echo Test plugin successfully changed from ${{needs.run_action.outputs.before_version}} to ${{needs.run_action.outputs.after_version}}
