@@ -36,4 +36,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: run_action
     steps:
-      - run: echo TODO - Use action output to check version of test plugin changed from ${{needs.run_action.outputs.before_version}} to ${{needs.run_action.outputs.after_version}} and they are not equal
+      - if: needs.run_action.outputs.before_version == needs.run_action.outputs.after_version
+        run: echo Test plugin failed to update && exit 1
+      - run: echo Test plugin successfully changed from ${{needs.run_action.outputs.before_version}} to ${{needs.run_action.outputs.after_version}}
