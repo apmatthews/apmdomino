@@ -16,9 +16,10 @@ jobs:
       after_version: ${{ steps.deploy.outputs.after_version }}
     steps: 
       - uses: actions/checkout@v3
-      - run: echo "TODO - use script to bump plugin version number"
-      - id: deploy
-        name: GitHub Action Deploy to WP Engine
+      - name: Bump plugin version number
+        run: sed -i 's/0.0.1/0.0.2' wp-content/plugins/my-cicd-plugin/my-cicd-plugin.php
+      - name: GitHub Action Deploy to WP Engine
+        id: deploy
         uses: wpengine/github-action-wpe-site-deploy@main
         with:
           # Deploy vars 
