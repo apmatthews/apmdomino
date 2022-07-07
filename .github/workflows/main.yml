@@ -14,7 +14,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - name: Bump test plugin version number
-        run: sed -i 's/0.0.1/0.0.2/' wp-content/plugins/my-cicd-plugin/my-cicd-plugin.php
+        run: sed -i 's/0.0.1/0.0.1/' wp-content/plugins/my-cicd-plugin/my-cicd-plugin.php
       - name: GitHub Action Deploy to WP Engine
         uses: wpengine/github-action-wpe-site-deploy@main
         with:

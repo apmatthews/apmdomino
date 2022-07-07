@@ -1,19 +1,19 @@
 # Get the the new plugin version
 AFTER_PLUGIN_VERSION=$(wp plugin get my-cicd-plugin | sed -n "/version/p" | cut -f2)
-echo "New test plugin version is: $AFTER_PLUGIN_VERSION"
+echo "New test plugin version: $AFTER_PLUGIN_VERSION"
 
 # Revert to backup created by rsync
-echo "Reverting to pre-deploy test plugin..."
 rm -rf wp-content/plugins/my-cicd-plugin && mv /tmp/my-cicd-plugin wp-content/plugins/
 
 # Get the old plugin version
 BEFORE_PLUGIN_VERSION=$(wp plugin get my-cicd-plugin | sed -n "/version/p" | cut -f2)
-echo "Old test plugin version was: $AFTER_PLUGIN_VERSION"
+echo "Old test plugin version: $BEFORE_PLUGIN_VERSION"
 
+# Check that the expected update was made
 if [ "$BEFORE_PLUGIN_VERSION" = "$AFTER_PLUGIN_VERSION" ]; then
-    echo "FAILURE: Test plugin was not updated" && exit 1
+    echo "Failure: Test plugin was not updated!" && exit 1
 else
-    echo "SUCCESS: Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
+    echo "Success: Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
 fi
 
 # Cleanup
