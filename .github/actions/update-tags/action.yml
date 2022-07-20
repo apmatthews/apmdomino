@@ -7,3 +7,4 @@ runs:
   using: 'composite'
   steps:
     - run: "${{ github.action_path }}/update-tags.sh"
+      shell: bash
