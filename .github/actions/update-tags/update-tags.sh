@@ -27,6 +27,9 @@ patchTag="$minorTag.${vers[2]:-0}"
 
 tags=($majorTag $minorTag $patchTag)
 
+git config user.name "${GITHUB_ACTOR}"
+git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
 for tag in "${tags[@]}"; do
     createOrUpdateTag "$tag";
 done
