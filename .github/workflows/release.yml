@@ -2,10 +2,10 @@ name: Publish Release
 
 on:
   release:
-    types: [published, edited]
+    types: [released]
 
 jobs:
-  create_tags:
+  update_tags:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
