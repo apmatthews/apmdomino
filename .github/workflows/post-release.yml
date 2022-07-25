@@ -3,7 +3,7 @@ name: Update major and minor tags
 on:
   push:
     tags:
-      - "v*.*.*"
+      - v*.*.*
 
 jobs:
   update_tags:
