@@ -35,5 +35,4 @@ jobs:
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
           npx changeset tag
-          # TODO: Need to check that tag doesn't exist before pushing
           git push origin --tags
