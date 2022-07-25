@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.1.2
+
+### Patch Changes
+
+- 50f4a83: Test the patches
+
 ## 4.1.1
 
 ### Patch Changes
