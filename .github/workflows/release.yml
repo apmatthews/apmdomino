@@ -1,8 +1,9 @@
-name: Publish Release
+name: Update major and minor tags
 
 on:
-  release:
-    types: [released]
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   update_tags:
@@ -14,4 +15,4 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/update-tags
         env:
-          RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
+          RELEASE_TAG_NAME: ${{ github.event.ref }}
