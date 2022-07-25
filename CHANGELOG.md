@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.1.1
+
+### Patch Changes
+
+- f04070b: This is a patch change
+
 ## 4.1.0
 
 ### Minor Changes
