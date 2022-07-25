@@ -31,5 +31,8 @@ jobs:
 
       - name: Publish tag
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # You can do something when a publish should happen.
-        run: npx changests status --since=main
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          npx changeset tag
+          git push origin --tags
