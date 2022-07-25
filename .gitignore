@@ -6,6 +6,9 @@
 *.swp
 Thumbs.db
 
+# project specific
+node_modules
+
 # wordpress specific
 .htaccess
 apple-touch-icon-precomposed.png
