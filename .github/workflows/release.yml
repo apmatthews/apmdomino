@@ -31,6 +31,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get current version
+        id: version
+        run: echo "::set-output name=CURRENT_VERSION::$(node -p "require('./package.json').version")"
+
       - name: Publish tags
         if: steps.changesets.outputs.hasChangesets == 'false'
-        run: bash ./.github/actions/update-tags/update-tags.sh $(node -p "require('./package.json').version")
+        uses: ./.github/actions/publish
+        with:
+          version: ${{ steps.version.outputs.CURRENT_VERSION }}

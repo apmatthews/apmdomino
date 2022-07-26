@@ -3,10 +3,10 @@
 set -e
 
 print_usage_instructions() {
-    echo "Usage: bash update-tags.sh <version>";
+    echo "Usage: bash publish.sh <version>";
     echo "";
     echo "Example use:";
-    echo "  bash update-tags.sh 3.1.1";
+    echo "  bash publish.sh 3.1.1";
     exit 1
 }
 
