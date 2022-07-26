@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.2.1
+
+### Patch Changes
+
+- ecca639: Random changeset
+
 ## 4.2.0
 
 ### Minor Changes
