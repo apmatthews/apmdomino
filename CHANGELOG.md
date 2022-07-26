@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.2.0
+
+### Minor Changes
+
+- faf9978: minor changes 4.2.0
+
 ## 4.1.4
 
 ### Patch Changes
