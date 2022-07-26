@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.1.3
+
+### Patch Changes
+
+- 5cd782a: Making a patch change for 4.1.3
+
 ## 4.1.2
 
 ### Patch Changes
