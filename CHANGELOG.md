@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 4.1.4
+
+### Patch Changes
+
+- 8bbedad: patches 4.1.4
+
 ## 4.1.3
 
 ### Patch Changes
