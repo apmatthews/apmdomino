@@ -40,6 +40,7 @@ if [ "$(git tag -l "$patchTag")" ]; then
 else 
     echo "Creating tag: $patchTag"
     git tag -a "$patchTag" -m " Release $patchTag"
+    git push origin "$patchTag"
 fi
 
 for tag in "${tagsToUpdate[@]}"; do
