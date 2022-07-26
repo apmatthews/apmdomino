@@ -1,6 +1,6 @@
 {
   "name": "@wpengine/github-action-wpe-site-deploy",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "private": true,
   "engines": {
     "node": ">=16",
