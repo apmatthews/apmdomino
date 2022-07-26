@@ -2,29 +2,45 @@
 
 set -e
 
-: "${RELEASE_TAG_NAME?Release tag name not set.}"
-echo "New release tag is: $RELEASE_TAG_NAME"
+print_usage_instructions() {
+    echo "Usage: bash update-tags.sh <version>";
+    echo "";
+    echo "Example use:";
+    echo "  bash update-tags.sh 3.1.1";
+    exit 1
+}
 
-# We will only handle tags >= v1 in the format v{MAJOR}.{MINOR}?.{PATCH}?
+if [ $# -eq 0 ]; then
+    print_usage_instructions
+fi
+
+version="$1"
+
+# We will only handle versions >= v1 in the format {MAJOR}.{MINOR}?.{PATCH}?
 #   capture 1: major number
 #   capture 2: minor number with dot
 #   capture 3: minor number without dot
 #   capture 4: patch number with dot
 #   capture 5: patch number without dot
-VALID_TAG_REGEX="^v([1-9][0-9]*)(\.(0|[1-9][0-9]*)){0,1}(\.(0|[1-9][0-9]*)){0,1}$"
+VERSION_REGEX="^([1-9][0-9]*)(\.(0|[1-9][0-9]*)){0,1}(\.(0|[1-9][0-9]*)){0,1}$"
 
-if [[ "$RELEASE_TAG_NAME" =~ $VALID_TAG_REGEX ]] ; then
+if [[ "$version" =~ $VERSION_REGEX ]] ; then
     majorTag="v${BASH_REMATCH[1]}"
     minorTag="$majorTag.${BASH_REMATCH[3]:-0}"
     patchTag="$minorTag.${BASH_REMATCH[5]:-0}"
     tagsToUpdate=("$majorTag" "$minorTag")
 else
-    echo "Release tag does not match the format \"v{MAJOR}.{MINOR}?.{PATCH}?\". Skipping tag updates."
+    echo "Provided version does not match the format \"{MAJOR}.{MINOR}?.{PATCH}?\". Skipping tag updates."
     exit 0
 fi
 
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+if [ "$(git tag -l "$patchTag")" ]; then
+    echo "Version $patchTag has already been released! Skipping tag updates."
+    exit 0
+else 
+    echo "Creating tag: $patchTag"
+    git tag -a "$patchTag" -m " Release $patchTag"
+fi
 
 for tag in "${tagsToUpdate[@]}"; do
     message="Release $patchTag"
