@@ -29,8 +29,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          commit: "Version the Action"
-          title: "Version the Action"
+          commit: "Version Action"
+          title: "Version Action"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
