@@ -1,0 +1,25 @@
+name: Multi-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_all:
+    strategy:
+      matrix:
+        sites: [apmdomino, cicd29, apmdominostg]
+    name: Deploy to all sites
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to ${{ matrix.sites }}
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: ${{ matrix.sites }}
