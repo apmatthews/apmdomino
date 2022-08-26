@@ -46,7 +46,7 @@ jobs:
 
       - name: Get release notes
         id: notes
-        run: echo "::set-output name=RELEASE_NOTES::$(node -p .github/actions/publish/getReleaseNotes ${{ steps.version.outputs.CURRENT_VERSION }} ./CHANGELOG.md)"
+        run: echo "::set-output name=RELEASE_NOTES::$(node .github/actions/publish/getReleaseNotes ${{ steps.version.outputs.CURRENT_VERSION }} ./CHANGELOG.md)"
 
       - name: Create release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5

@@ -13,7 +13,9 @@ const readFile = (filename) => fs.readFile(filename, { encoding: "utf8" });
         process.exit(1);
     }
 
-    return getReleaseNotes(args[0], args[1]);
+    const notes = await getReleaseNotes(args[0], args[1]);
+
+    process.stdout.write(notes);
 })();
 
 /**
