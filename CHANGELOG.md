@@ -1,5 +1,11 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 3.1.1
+
+### Patch Changes
+
+- 5c0d952: patch 311
+
 ## 3.1.0
 
 ### Minor Changes
