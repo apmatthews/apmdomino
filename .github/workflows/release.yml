@@ -8,14 +8,15 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
-    name: Version and Release
+  versioning:
+    name: Versioning
     runs-on: ubuntu-latest
+    outputs:
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      version: ${{ steps.version.outputs.CURRENT_VERSION }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
@@ -38,16 +39,35 @@ jobs:
         id: version
         run: echo "::set-output name=CURRENT_VERSION::$(node -p "require('./package.json').version")"
 
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: versioning
+    if: needs.versioning.outputs.hasChangesets == 'false'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
       - name: Publish tags
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        id: publish
         uses: ./.github/actions/publish
         with:
-          version: ${{ steps.version.outputs.CURRENT_VERSION }}
+          version: ${{ needs.versioning.outputs.version }}
+
+      # TODO: Try putting these two into a composite action that is conditionally executed on publish tags output
 
       - name: Get release notes
+        if: steps.publish.outputs.published == 'true'
         id: notes
         run: |
-          notes=$(node .github/actions/publish/getReleaseNotes ${{ steps.version.outputs.CURRENT_VERSION }} ./CHANGELOG.md)
+          notes=$(node .github/actions/publish/getReleaseNotes ${{ needs.versioning.outputs.version }} ./CHANGELOG.md)
           echo $notes
           notes="${notes//'%'/'%25'}"
           notes="${notes//$'\n'/'%0A'}"
@@ -58,4 +78,4 @@ jobs:
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
           body: ${{ steps.notes.outputs.RELEASE_NOTES }}
-          tag_name: v${{ steps.version.outputs.CURRENT_VERSION }}
+          tag_name: v${{ needs.versioning.outputs.version }}
