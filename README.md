@@ -1,5 +1,3 @@
 Test repo
 
-Making a minor change
-
-And a patch change
+This is 3.1.1
