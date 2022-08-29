@@ -66,8 +66,6 @@ jobs:
         with:
           version: ${{ needs.versioning.outputs.version }}
 
-      # TODO: Try putting these two into a composite action that is conditionally executed on publish tags output
-
       - name: Get release notes
         if: steps.publish.outputs.published == 'true'
         id: notes
@@ -80,6 +78,7 @@ jobs:
           echo "::set-output name=RELEASE_NOTES::$notes"
 
       - name: Create release
+        if: steps.notes.outputs.RELEASE_NOTES
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
           body: ${{ steps.notes.outputs.RELEASE_NOTES }}
