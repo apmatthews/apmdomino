@@ -1,3 +1,3 @@
 Test repo
 
-Making a patch change
+Making a minor change
