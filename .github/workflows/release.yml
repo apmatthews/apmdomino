@@ -54,9 +54,6 @@ jobs:
           notes="${notes//$'\r'/'%0D'}"
           echo "::set-output name=RELEASE_NOTES::$notes"
 
-      - name: Print notes
-        run: echo ${{ steps.notes.outputs.RELEASE_NOTES }}
-
       - name: Create release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
