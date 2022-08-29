@@ -67,19 +67,16 @@ jobs:
           version: ${{ needs.versioning.outputs.version }}
 
       - name: Get release notes
-        if: steps.publish.outputs.published == 'true'
         id: notes
-        run: |
-          notes=$(node .github/actions/publish/getReleaseNotes ${{ needs.versioning.outputs.version }} ./CHANGELOG.md)
-          echo $notes
-          notes="${notes//'%'/'%25'}"
-          notes="${notes//$'\n'/'%0A'}"
-          notes="${notes//$'\r'/'%0D'}"
-          echo "::set-output name=RELEASE_NOTES::$notes"
+        if: steps.publish.outputs.published == 'true'
+        uses: ./.github/actions/get-release-notes
+        with:
+          version: ${{ needs.versioning.outputs.version }}
+          changelog: ./CHANGELOG.md
 
       - name: Create release
-        if: steps.notes.outputs.RELEASE_NOTES
+        if: steps.notes.outputs.release_notes
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
-          body: ${{ steps.notes.outputs.RELEASE_NOTES }}
+          body: ${{ steps.notes.outputs.release_notes }}
           tag_name: v${{ needs.versioning.outputs.version }}
