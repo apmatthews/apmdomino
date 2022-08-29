@@ -46,7 +46,13 @@ jobs:
 
       - name: Get release notes
         id: notes
-        run: echo "::set-output name=RELEASE_NOTES::$(node .github/actions/publish/getReleaseNotes ${{ steps.version.outputs.CURRENT_VERSION }} ./CHANGELOG.md)"
+        run: |
+          notes=$(node .github/actions/publish/getReleaseNotes ${{ steps.version.outputs.CURRENT_VERSION }} ./CHANGELOG.md)
+          echo $notes
+          notes="${notes//'%'/'%25'}"
+          notes="${notes//$'\n'/'%0A'}"
+          notes="${notes//$'\r'/'%0D'}"
+          echo "::set-output name=RELEASE_NOTES::$notes"
 
       - name: Print notes
         run: echo ${{ steps.notes.outputs.RELEASE_NOTES }}
