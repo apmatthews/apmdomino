@@ -1,5 +1,15 @@
 # @wpengine/github-action-wpe-site-deploy
 
+## 3.2.0
+
+### Minor Changes
+
+- 0f3ea0c: This is a minor change
+
+### Patch Changes
+
+- 790dded: This is a patch change
+
 ## 3.1.1
 
 ### Patch Changes
