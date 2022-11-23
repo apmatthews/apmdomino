@@ -1,0 +1,3 @@
+[submodule "wp-content/themes/frost"]
+	path = wp-content/themes/frost
+	url = https://github.com/wpengine/frost.git
