@@ -1,0 +1,9 @@
+pipelines:
+ default:
+  - step:
+     name: Deploy to Production 
+     script:
+      - pipe: azunigawpe/wpe-bb-deploy:main
+        variables:
+         WPE_SSHG_KEY_PRIVATE: $WPE_SSHG_KEY_PRIVATE
+         WPE_ENV: 'apmdomino'
