@@ -29,5 +29,5 @@ if [ -z "$BEFORE_PLUGIN_VERSION" ] || [ -z "$AFTER_PLUGIN_VERSION" ] || [ "$BEFO
     echo "{\"status\": \"failure\"}" > $PLUGINS_DIR/$PLUGIN_NAME/$STATUS_FILE
 else
     echo "Success: Test plugin successfully updated from $BEFORE_PLUGIN_VERSION to $AFTER_PLUGIN_VERSION!"
-    echo "{\"status\": \"failure\"}" > $PLUGINS_DIR/$PLUGIN_NAME/$STATUS_FILE
+    echo "{\"status\": \"success\"}" > $PLUGINS_DIR/$PLUGIN_NAME/$STATUS_FILE
 fi
