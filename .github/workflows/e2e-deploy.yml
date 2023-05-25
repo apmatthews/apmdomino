@@ -41,6 +41,6 @@ jobs:
     needs: run_action
     steps:
       - name: Validate deploy results
+        if: ${{ run_action.result }} != 'failure'
         run: |
-          [ ${{ needs.run_action.outputs.results }} != "" ] || exit 1
           [ ${{ fromJson(needs.run_action.outputs.results).status }} = "success" ] || exit 1
