@@ -1,0 +1,47 @@
+name: Test e2e Deploy to WP Engine
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  run_action:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.fetchResult.outputs.response }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Bump test plugin version number
+        run: sed -i 's/0.0.1/0.0.2/' tests/data/plugins/test-plugin/test-plugin.php
+      - name: GitHub Action Deploy to WP Engine
+        uses: ./
+        with:
+          # Deploy vars
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: apmdomino
+          # Deploy Options
+          SRC_PATH: "tests/data/plugins/test-plugin"
+          REMOTE_PATH: "wp-content/plugins/"
+          PHP_LINT: true
+          FLAGS: -r --backup --backup-dir=/tmp --itemize-changes
+          SCRIPT: "tests/data/post-deploy/test-plugin.sh"
+          CACHE_CLEAR: true
+      - name: Fetch deploy results
+        id: fetchResult
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://apmdomino.wpengine.com/wp-content/plugins/status.json"
+          ignoreStatusCodes: 404
+  validate_result:
+    runs-on: ubuntu-latest
+    if: ${{ !cancelled() }}
+    needs: run_action
+    steps:
+      - name: Validate deploy results
+        run: |
+          result = ${{ fromJson(steps.fetchResult.outputs.response).status }} || "failure"
+          [ $result = "success" ] || exit 1
