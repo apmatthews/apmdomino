@@ -32,7 +32,7 @@ jobs:
         id: fetchResult
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "https://apmdomino.wpengine.com/wp-content/plugins/status.json"
+          url: "https://apmdomino.wpengine.com/wp-content/plugins/test-plugin/status.json"
       - name: Validate deploy results
         run: |
           [ ${{ fromJson(steps.fetchResult.outputs.response).status }} = "success" ] || exit 1
