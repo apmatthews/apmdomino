@@ -38,10 +38,11 @@ jobs:
           [ ${{ fromJson(steps.fetchResult.outputs.response).status }} = "success" ] || exit 1
   notify:
     runs-on: ubuntu-latest
+    if: ${{ !cancelled() }}
     needs: run_action
-    if: ${{ needs.run_action.result == 'failure' }} && github.ref == 'refs/heads/main'
     steps:
       - name: Notify slack on failure
+        if: ${{ needs.run_action.result == 'failure' }} && github.ref == 'refs/heads/main'
         run: |
           echo "Job failed. Notifying slack channel."
       
