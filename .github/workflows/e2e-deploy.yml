@@ -12,7 +12,7 @@ jobs:
   run_action:
     runs-on: ubuntu-latest
     outputs:
-      status: ${{ steps.fetchResult.outputs.response }}
+      results: ${{ steps.fetchResult.outputs.response }}
     steps:
       - uses: actions/checkout@v3
       - name: Bump test plugin version number
@@ -43,5 +43,5 @@ jobs:
     steps:
       - name: Validate deploy results
         run: |
-          result = ${{ fromJson(steps.fetchResult.outputs.response).status }} || "failure"
+          result = ${{ fromJson(needs.run_action.outputs.results).status }} || "failure"
           [ $result = "success" ] || exit 1
