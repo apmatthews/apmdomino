@@ -43,5 +43,4 @@ jobs:
     steps:
       - name: Validate deploy results
         run: |
-          result = ${{ fromJson(needs.run_action.outputs.results).status }} || "failure"
-          [ $result = "success" ] || exit 1
+          [ ${{ fromJson(needs.run_action.outputs.results).status }} = "success" ] || exit 1
