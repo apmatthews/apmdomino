@@ -34,7 +34,7 @@ jobs:
         id: fetchResult
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "https://apmdomino.wpengine.com/wp-content/plugins/test-plugin/status.json"
+          url: "https://apmdomino.wpengine.com/wp-content/plugins/status.json"
   validate_result:
     runs-on: ubuntu-latest
     if: ${{ !cancelled() }}
