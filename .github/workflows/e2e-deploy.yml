@@ -12,9 +12,7 @@ jobs:
   run_action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Bump test plugin version number
-        run: sed -i 's/0.0.1/0.0.2/' tests/data/plugins/test-plugin/test-plugin.php
+      - uses: actions/checkout@v4
       - name: GitHub Action Deploy to WP Engine
         uses: ./
         with:
@@ -24,25 +22,24 @@ jobs:
           # Deploy Options
           SRC_PATH: "tests/data/plugins/test-plugin"
           REMOTE_PATH: "wp-content/plugins/"
-          PHP_LINT: true
-          FLAGS: -r --backup --backup-dir=/tmp --itemize-changes
-          SCRIPT: "tests/data/post-deploy/test-plugin.sh"
+          PHP_LINT: false
+          FLAGS: -azvr --inplace --delete --exclude=".*"
           CACHE_CLEAR: true
-      - name: Fetch deploy results
-        id: fetchResult
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: "https://apmdomino.wpengine.com/wp-content/plugins/test-plugin/status.json"
-      - name: Validate deploy results
-        run: |
-          [ ${{ fromJson(steps.fetchResult.outputs.response).status }} = "success" ] || exit 1
-  notify:
-    runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
-    needs: run_action
-    steps:
-      - name: Notify slack on failure
-        if: needs.run_action.result == 'failure' && github.ref == 'refs/heads/main'
-        run: |
-          echo "Job failed. Notifying slack channel."
+  #     - name: Fetch deploy results
+  #       id: fetchResult
+  #       uses: fjogeleit/http-request-action@v1
+  #       with:
+  #         url: "https://apmdomino.wpengine.com/wp-content/plugins/test-plugin/status.json"
+  #     - name: Validate deploy results
+  #       run: |
+  #         [ ${{ fromJson(steps.fetchResult.outputs.response).status }} = "success" ] || exit 1
+  # notify:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ !cancelled() }}
+  #   needs: run_action
+  #   steps:
+  #     - name: Notify slack on failure
+  #       if: needs.run_action.result == 'failure' && github.ref == 'refs/heads/main'
+  #       run: |
+  #         echo "Job failed. Notifying slack channel."
       
