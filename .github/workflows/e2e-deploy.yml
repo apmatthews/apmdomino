@@ -23,7 +23,7 @@ jobs:
           SRC_PATH: "tests/data/plugins/test-plugin"
           REMOTE_PATH: "wp-content/plugins/"
           PHP_LINT: false
-          FLAGS: -azvr --inplace --delete --exclude=".*"
+          FLAGS: -azvr --inplace --delete --exclude=.*
           CACHE_CLEAR: true
   #     - name: Fetch deploy results
   #       id: fetchResult
